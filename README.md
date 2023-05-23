@@ -1,14 +1,12 @@
 # Octy team iOS developer initial guideline
-
-Greetings stranger! If you read this, that means you are lucky to join our team ^_^. Before you start coding, you have to familiarize yourself with some internal rules and recommendations.
+---------
+Привет незнакомец! Если ты это читаешь, значит тебе посчастливилось присоединиться к нашей команде 🎉. Прежде чем приступить к программированию, тебе необходимо ознакомиться с некоторыми внутренними правилами и рекомендациями.
 
 # What basic tools do we use for developing?
 * [Xcode](https://developer.apple.com/xcode/) - IDE
 * [Homebrew](https://brew.sh/index_ru) - MacOS package manager
 * [Swiftlint](https://github.com/realm/SwiftLint) - Tool to enforce Swift style and conventions
 * [Fork](https://git-fork.com/) - Free git UI Client
-
-
 
 # What technology stack do we usually use?
 * MVVM + Coordinator.
@@ -18,7 +16,7 @@ Greetings stranger! If you read this, that means you are lucky to join our team 
 * CoreData
 * Snapkit
 * Firebase services
-* Swiftlint
+* [Swiftlint](https://github.com/realm/SwiftLint) - Tool to enforce Swift style and 
 * R Swift
 * Floating pannel
 
@@ -341,7 +339,7 @@ class Request {
 
 Public, Open, Internal
 ----------------------
-Внутри кода Sherlock'a, модификаторы **open, public, internal** не используются (исключением являются отдельные библиотеки)
+Внутри кода основного таргета, модификаторы **open, public, internal** не используются (исключением являются отдельные библиотеки)
 
 Fileprivate
 -----------
@@ -371,17 +369,17 @@ Types with shorthand names
 Полная форма должна использоваться только в тех случаях, когда этого требует компилятор, например, при приведении типов.
 
 ```
-let array: \[String\] // Correct
+let array: [String] // Correct
 let array: Array<String> // Wrong
 
-let dictionary: \[String: String\] // Correct
+let dictionary: [String: String] // Correct
 let dictionary: Dictionary<String, String> // Wrong
 
 let optional: Int? // Correct
 let optional: Optional<Int> // Wrong
 
 // Проверка на тип
-if array is \[String\] {
+if array is [String] {
 }
 ```
 
@@ -500,3 +498,79 @@ Use of self
 
 Use of return
 ----------------
+Если тело метод или вычисляемое свойство содежит в себе одну строчку кода и возвращяет какое либо значение **return** опускается
+
+```
+// Correct
+var diameter: Double {
+	radius * 2.0
+}
+
+// Correct
+func diameter(radius: CGFloat) -> CGFloat {
+	radius * 2.0
+}
+	
+// Wrong
+var diameter: Double {
+	return radius * 2.0
+}
+// Wrong
+func diameter(radius: CGFloat) -> CGFloat {
+	return  radius * 2.0
+}
+```
+
+Use short syntax
+----------------
+С выходом Swift 5.7 нам стал доступен [короткий синтаксиси](https://github.com/apple/swift-evolution/blob/main/proposals/0345-if-let-shorthand.md) для разовачивания опционалов, что более удобно и делает код чище.
+
+```
+let foo: Foo? = ...
+
+// Correct
+guard let foo else { return }
+
+if let foo {
+    // ...
+}
+	
+// Wrong
+guard let foo = foo else { return }
+
+if let foo = foo {
+    // ...
+}
+```
+
+Prefer multiply instead of division
+----------------------
+В среднем деление требует в 6 раз больше ресурсов чем у множение, по этому целесообразно использовать умножение в тех местах где это возможно
+
+```
+override func layoutIfNeeded() {
+	super.layoutIfNeeded()
+	
+	// Wrong
+	layer.cornerRadius = bounds.height / 2
+	
+	// Correct
+	layer.cornerRadius = bounds.height * 0.5
+}
+```
+
+Legacy prevention
+---------
+Что бы не скатываться легаси и идти в ногу со временем нужно предпочитаь **async/await** методы **completionBlock**-ам.
+
+Так же приветсвуется использование **Actors** и **Task** вместо **GCD** где это возможно.
+
+Assets naming
+-----------
+Имя файла ассета в файлах проекта должно быть идентично отображаемому имени в ассетах проекта
+начинается с маленькой буквы, использует camelCase
+
+> /Users/mac/[FOLDER]/[PROJECT]/Resources/Assets.xcassets/Icons/calendarIconSmall/logo.pdf
+
+is equal to
+> [PROJECT]/Resources/Assets/Icons/logo.pdf
