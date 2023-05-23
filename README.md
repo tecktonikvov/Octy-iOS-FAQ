@@ -9,16 +9,16 @@
 * [Fork](https://git-fork.com/) - Free git UI Client
 
 # What technology stack do we usually use?
-* MVVM + Coordinator.
+* [MVVM + Coordinator.](https://medium.com/nerd-for-tech/mvvm-coordinators-ios-architecture-tutorial-fb27eaa36470)
 * [UIKit](https://developer.apple.com/documentation/uikit) 
 * [SwiftUI](https://developer.apple.com/xcode/swiftui/)
-* Alamofire for REST and Appollo for GraphQL.
-* CoreData
-* Snapkit
-* Firebase services
+* [Alamofire](https://github.com/Alamofire/Alamofire) for REST and [Appollo](https://www.apollographql.com/docs/ios/) for GraphQL.
+* [CoreData](https://developer.apple.com/documentation/coredata)
+* [Snapkit](https://github.com/SnapKit/SnapKit)
+* [Firebase services](https://console.firebase.google.com/)
 * [Swiftlint](https://github.com/realm/SwiftLint) - Tool to enforce Swift style and 
-* R Swift
-* Floating pannel
+* [RSwift](https://github.com/mac-cain13/R.swift)
+* [Floating pannel](https://github.com/scenee/FloatingPanel)
 
 # Swift codestyle
 Naming
